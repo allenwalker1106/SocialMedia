@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.3.1/css/all.min.css" rel="stylesheet">
+    <link href="css/home/styles.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="main-content">
+        <!-- Top navbar -->
+        <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
+            <div class="container-fluid">
+                <!-- Brand -->
+                <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="/home" target="_blank">Home page</a>
+                <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="/newsfeed" target="_blank" style="padding:5px; margin:0px  5px;border-left: 1px;  border-left-style: solid;">News</a>
+                <!-- Form -->
+                <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
+                    <div class="form-group mb-0">
+                        <div class="input-group input-group-alternative">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-search"></i></span>
+                            </div>
+                            <input class="form-control" placeholder="Search" type="text">
+                        </div>
+                    </div>
+                </form>
+                <!-- User -->
+                <ul class="navbar-nav align-items-center d-none d-md-flex">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <div class="media align-items-center">
+                                <span class="avatar avatar-sm rounded-circle">
+        <img alt="Image placeholder" src="<%-user.profile_image_link%>">
+        </span>
+                                <div class="media-body ml-2 d-none d-lg-block">
+                                    <span class="mb-0 text-sm  font-weight-bold"><%-user.name.firstname%> <%-user.name.lastname%></span>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!-- Header -->
+        <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 600px; background-image: url(<%-user.background_image_link%>); background-size: cover; background-position: center top;">
+            <!-- Mask -->
+            <span class="mask bg-gradient-default opacity-8"></span>
+            <!-- Header container -->
+        </div>
+        <!-- Page content -->
+        <link href="css/home/card.css" rel="stylesheet">
+        <div class="container-fluid mt--7">
+            <div class="row">
+                <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
+                    <div class="card card-profile shadow affix">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-3 order-lg-2">
+                                <div class="card-profile-image">
+                                    <a href="#">
+                                        <img src="<%-user.profile_image_link%>" class="rounded-circle">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+                            <div class="d-flex justify-content-between">
+                                <!-- <a href="#" class="btn btn-sm btn-info mr-4">Connect</a>
+                                <a href="#" class="btn btn-sm btn-default float-right">Message</a> -->
+                            </div>
+                        </div>
+                        <div class="card-body pt-0 pt-md-4">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="card-profile-stats d-flex justify-content-center mt-md-5">
+                                        <div>
+                                            <span class="heading"><%=user.friends.length%></span>
+                                            <span class="description">Friends</span>
+                                        </div>
+                                        <div>
+                                            <span class="heading"><%=user.medias.length%></span>
+                                            <span class="description">Photos</span>
+                                        </div>
+                                        <div>
+                                            <span class="heading"><%=user.followers%></span>
+                                            <span class="description">Followers</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <h3>
+                                    <%-user.name.firstname%>
+                                        <%-user.name.middlename%>
+                                            <%-user.name.lastname%>
+                                </h3>
+                                <div class="h5 font-weight-300">
+                                    <i class="ni location_pin mr-2"></i>
+                                    <%=user.address.country%>
+                                        <%=user.address.city%>
+                                </div>
+                                <div>
+                                    <i class="ni education_hat mr-2"></i>University of Computer Science
+                                </div>
+                                <hr class="my-4">
+                                <p>
+                                    <Ryan — the name taken by Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and records all of his own music.>
+                                </p>
+                                <a href="#">Show more</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-8 order-xl-1">
+                    <div class="card bg-secondary shadow">
+                        <div class="card-header bg-white border-0">
+                            
+                            <div class="row align-items-center">
+
+                                    <%for(i=0;i<users.length;i++){%>
+                                <div class="col-4">
+            <div class="card hovercard">
+                    <div class="cardheader">
+    
+                    </div>
+                    <div class="avatar">
+                        <img alt="" src="<%=users[i].profile_image_link%>">
+
+                    </div>
+
+                    <a><i class ="fa fa-plus"></i></a>
+
+                    <div class="info">
+                        <div class="title">
+                            <a target="_blank" href="home/<%=users[i]._id%>"><%=users[i].name.firstname%> <%=users[i].name.middlename%> <%=users[i].name.lastname%></a>
+                        </div>
+                    </div>
+                </div>
+                                </div>
+                                <%}%>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <div class="row">
+                    <div class="col-xl-8 order-xl-1" style="margin: 10px;">
+                        <div class="card bg-secondary shadow">
+                            <div class="card-header bg-white border-0">
+                                <div class="row align-items-center">
+                                    <div class="col-12">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <a href="/messager" style="bottom: 20px; right :20px; position: fixed; font-size: 40px;"><i class='fa fa-comments' ></i></a>
+    </div>
+    
+</body>
+
+</html>

@@ -1,0 +1,86 @@
+
+body{
+    margin: 0px;
+    padding:0px;
+}
+
+a{   
+    text-decoration: none;
+}
+
+#particles-js{
+    height: auto;
+    background: no-repeat;
+    background-size: cover;
+    background-image: url('/css/signup/data/713678.jpg');
+    /* background-color: white; */
+}
+
+
+
+.topnav{
+    background-color: rgba(43, 41, 41, 0.7) !important; 
+    position: sticky;    
+    z-index: 1;
+}
+
+
+.nav_item,
+.brand{
+    width: 150px;
+    color: white !important;
+    font-size: 20px;
+    border-left: 5px;
+    border-left-style:solid;
+    border-color: white;
+    font-family: 'Gugi';
+    cursor: pointer;
+}
+
+
+.nav_item:hover{
+    background-color: rgba(228, 220, 220, 0.7);
+    color: rgba(36, 33, 33, 0.966);
+}
+
+
+.brand{
+    width: 150px;
+    font-size: 23px;
+    float: left;
+    border: none;
+    text-align: unset;
+    margin-left: 10px;
+    padding: 10px;
+}
+
+.nav_item:hover{
+    color: rgba(36, 33, 33) !important;
+}
+
+
+.quote{
+    color: whitesmoke;
+    font-family: 'Gugi';
+    font-size : 20px;
+    width: 100%;
+    font-weight: bolder;
+    text-align: center;
+    padding: 5px;
+}
+
+
+.flb{
+    font-size: 15px;
+    margin: 2px 0px;
+    font-weight: bold;
+    color: black;
+}
+
+.signup_container{
+    background-color: rgba(255,255,255,0.45) ;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 15px 0px;
+}
+
