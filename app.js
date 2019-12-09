@@ -2,14 +2,15 @@ const express = require('express');
 const uuid = require('uuid/v4')
 const session = require('express-session')
 const FileStore = require('session-file-store')(session);
-const fileUpload = require('express-fileupload');
-const bodyParser = require('body-parser');
 const DB =  require('./MongoDB.js').DB; 
+const multer = require('multer')
 const PORT = 4000
+const bodyParser = require('body-parser')
+
 const URI = 'mongodb://localhost:27017/social_media'
 // const URI= 'mongodb+srv://coldblood101:Dragon1774@mastercluster-lhsxk.azure.mongodb.net/onlineexam?retryWrites=true&w=majority'
 // const URI = 'mongodb://localhost:27017/test'
-
+const upload = multer({dest: 'public/data/user_media'}) 
 DB.connect(URI);
 const app =express()
 
@@ -22,17 +23,15 @@ app.set('view engine','ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(session({
-  genid: (req) => {
-    return uuid() // use UUIDs for session IDs
-  },
-  store: new FileStore(),
-  secret: 'keyboard cat',
-  saveUninitialized: true
-}))
-
-app.use(fileUpload({
-    createParentPath: true
-}));
+	genid: (req) => {
+	  return uuid() // use UUIDs for session IDs
+	},
+	store: new FileStore(),
+	secret: 'keyboard cat',
+	saveUninitialized: true
+  }))
+  
+  
 
 app.get('/',(req,res)=>{
 	if(req.session.isAuthenticated){
@@ -45,9 +44,10 @@ app.get('/',(req,res)=>{
 app.post('/login', async (req,res)=>{
 	if(!req.session.isAuthenticated)
 	{
-		
-		let user = req.body.user;
-		const username_exist = await DB.CheckUsername(user.username).exec() ===1 ? true: false;
+		console.log(req.body)
+		try{
+			let user = req.body.user;
+			const username_exist = await DB.CheckUsername(user.username).exec() ===1 ? true: false;
 		if(!username_exist){
 			// the account or user name is not exist 
 			res.render('login',{user:{username: user.username}});
@@ -68,6 +68,13 @@ app.post('/login', async (req,res)=>{
 			req.session.isAuthenticated = true;
 			res.redirect('/home')
 		}
+		}catch(e){
+			req.session.destroy()
+			res.redirect('/login')
+			// res.render('login',{user:{username: user.username}});
+			res.end();
+		}
+		
 	}else{
 		console.log('user autheni')
 		res.redirect('/home')
@@ -134,10 +141,10 @@ app.get('/logout',(req,res)=>{
 
 app.get('/home',async (req,res)=>{
 	if(req.session.isAuthenticated&&req.session.user){
-		// res.send('LOGGEDIN');
 		let user =req.session.user;
 		const user_data =await DB.getUserByAccount(user.username,user.password).exec();
 		const news = await DB.getNewByUser(user._id);
+		// res.send(news);
 		req.session.user = user_data;
 		res.render('home',{user:req.session.user,news:news})
 		res.end();
@@ -146,15 +153,29 @@ app.get('/home',async (req,res)=>{
 		res.redirect('/login')
 })
 
-app.post('/add_news',(req,res)=>{
+app.post('/add_news',upload.single('file'),(req,res)=>{
 	if(req.session.isAuthenticated && req.session.user){
-		let news = req.body.news;
-		news.owner={}
-		news.owner._id=req.session.user._id;
-		news.owner.name=req.session.user.name;
-		news.owner.profile_image_link=req.session.user.profile_image_link;
+		let text = req.body.text
+		let file = req.file
+		let news ={}
+		news.body = text
+		news.media = {
+			originalname: file.originalname,
+			encoding: file.encoding,
+			mimetype: file.mimetype,
+			path:"/data/user_media/"+file.filename
+		}
+		if(news.hasOwnProperty('media'))
+			console.log('Valid	')
+		console.log(news.media.path);
+
+		news['owner']={}
+		news['owner']['_id']=req.session.user._id;
+		news['owner']['name']=req.session.user.name;
+		news['owner']['profile_image_link']=req.session.user.profile_image_link;
 		DB.insertNew(news);
 		res.redirect('/home');
+		res.end();
 		
 	}else{
 		res.redirect('/login')
@@ -200,13 +221,12 @@ app.get('/messager',(req,res)=>{
 	}
 })
 
-app.get('/fileuploads',(req,res)=>{
-	res.render('file_view');
+app.get('/logout',(req,res)=>{
+	req.session.destroy();
+	res.end();
 })
 
-app.post('/fileuploads',(req,res)=>{
-	console.log(req.files)
-})
+
 
 app.listen(PORT,(err)=>{
 	console.log(`app.listen on port ${PORT}`)

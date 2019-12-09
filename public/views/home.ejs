@@ -131,14 +131,15 @@
                         <div class="card-header bg-white border-0">
                             <div class="row align-items-center">
                                 <div class="col-12">
-                                    <form action="/add_news" method="POST">
-                                        <textarea name="news[body]" class="form-control" placeholder="What's on your mind" rows="5"></textarea>
-                                        <!-- <i class="fa fa-camera" id="add_media"></i>
-                                        <input type="file" > -->
+                                    
+                                    <form action="/add_news" method="POST" enctype='multipart/form-data' runat="server">
+                                        <img id="preview_image" src="#" alt=" "  style="width: 100%; height: auto;"/>
+                                        <textarea name="text" class="form-control" placeholder="What's on your mind" rows="5"></textarea>
                                         <div class="text-right">
-
-                                                <input type=text name="news[media]" default="">
+                                            <label for="file-input">
                                                 <i class="fa fa-camera"></i>
+                                            </label>
+                                            <input type="file" name ="file" id="file-input" style="display:none;">
                                             <button type="submit" class="btn btn-primary ">Add</button>
                                         </div>
                                     </form>
@@ -180,9 +181,9 @@
                                             <!--/ media -->
                                         </div>
                                         <!--/ cardbox-heading -->
-                                        <% if( news[i].media!=""){%>
-                                        <div class="cardbox-item">
-                                            <img class="img-fluid" src="<%=news[i].media%>" alt="Image">
+                                        <% if( true){%>
+                                        <div class="cardbox-item text-center">
+                                            <img class="img-fluid" src="<%=news[i].media.path%>" style="width: 100%; height: auto;" >
                                         </div>
                                         <%}%>
 
@@ -231,7 +232,7 @@
         </div>
         <a href="/messager" style="bottom: 20px; right :20px; position: fixed; font-size: 40px;"><i class='fa fa-comments' ></i></a>
     </div>
-    
+    <script type='text/javascript' src="js/news/event.js"></script>
 </body>
 
 </html>

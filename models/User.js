@@ -55,7 +55,7 @@ const userSchema = new mongoose.Schema({
     background_image_link:{
 
         type: String,
-        default: "data/image/default_background.png"
+        default: "data/image/default_background.jpg"
     },
     description:{
         type:String,

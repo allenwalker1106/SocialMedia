@@ -17,8 +17,8 @@ const news_schema = new mongoose.Schema({
         default: ""
     },
     media:{
-        type: String,
-        default: ""
+        type:Object,
+        default: undefined
     },
     create_date:{
         type: Date,
