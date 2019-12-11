@@ -121,13 +121,14 @@
                         <div class="card-header bg-white border-0">
                             <div class="row align-items-center">
                                 <div class="col-12">
-                                    <form action="/add_news" method="POST" enctype='multipart/form-data'>
+                                    <form action="/add_news" method="POST" enctype='multipart/form-data' runat="server">
+                                        <img id="preview_image" src="#" alt=" "  style="width: 100%; height: auto;"/>
                                         <textarea name="text" class="form-control" placeholder="What's on your mind" rows="5"></textarea>
-                                        <i class="fa fa-camera" id="add_media"></i>
-                                        
                                         <div class="text-right">
-                                            <input type="file" name ="file" >
-                                            <i class="fa fa-camera"></i>
+                                            <label for="file-input">
+                                                <i class="fa fa-camera"></i>
+                                            </label>
+                                            <input type="file" name ="file" id="file-input" style="display:none;">
                                             <button type="submit" class="btn btn-primary ">Add</button>
                                         </div>
                                     </form>
