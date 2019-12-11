@@ -181,7 +181,7 @@
                                             <!--/ media -->
                                         </div>
                                         <!--/ cardbox-heading -->   
-                                        <% if(news[i].media.path!=""){%>
+                                        <% if(news[i].media){%>
                                         <div class="cardbox-item text-center">
                                             <img class="img-fluid" src="<%=news[i].media.path%>" style="width: 100%; height: auto;" >
                                         </div>
@@ -215,8 +215,8 @@
                                                               <a href=""><img class="rounded-circle" src="<%=news[i].owner.profile_image_link%>" alt="..."></a>                            
                                                              </span>
                                             <div class="search">
-                                                <input type="text" value="<%=news[i]._id%>" style="display:none;" name="comment[_id]">
-                                                <input placeholder="Write a comment" type="text" name="comment[data]">
+                                                <input type="text" value="<%=news[i]._id%>" style="display:none;" name="comment[_id]" id="news_id">
+                                                <input placeholder="Write a comment" type="text" name="comment[data]" id="comment_data">
                                                 <button style="color:rgb(102, 102, 255);" id="btn_add_comment"><i class="fa  fa-paper-plane "></i></button>
                                             </div>
                                             <!--/. Search -->
@@ -234,6 +234,8 @@
         <a href="/messager" style="bottom: 20px; right :20px; position: fixed; font-size: 40px;"><i class='fa fa-comments' ></i></a>
     </div>
     <script type='text/javascript' src="js/news/event.js"></script>
+    
+    <script type='text/javascript' src="js/home/event.js"></script>
 </body>
 
 </html>

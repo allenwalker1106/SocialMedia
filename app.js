@@ -159,18 +159,18 @@ app.post('/add_news',upload.single('file'),(req,res)=>{
 		let file = req.file
 		let news ={}
 		news.body = text
-		news.media = {
+		console.log(file) 
+		if(file){ 
+			news.media = {
 			originalname: file.originalname,
 			encoding: file.encoding,
 			mimetype: file.mimetype,
 			path:"/data/user_media/"+file.filename
+			}
 		}
-		if(news.hasOwnProperty('media'))
-			console.log('Valid	')
-		console.log(news.media.path);
-
+		
 		news['owner']={}
-		news['owner']['_id']=req.session.user._id;
+		news['owner']['_id']=req.session.user._id; 
 		news['owner']['name']=req.session.user.name;
 		news['owner']['profile_image_link']=req.session.user.profile_image_link;
 		DB.insertNew(news);
@@ -223,21 +223,13 @@ app.get('/messager',(req,res)=>{
 
 app.get('/logout',(req,res)=>{
 	req.session.destroy();
-	res.redirect('/login')
 	res.end();
 })
 
-app.get('/test',(req,res)=>{
-	res.render('test');
-})
-
-app.post('/test',(req,res)=>{
+app.post('/add_comment',(req,res)=>{
 	console.log(req.body);
 })
 
-app.post('/add_comment',(req,res)=>{
-	DB.addComment(req.body.comment);
-})
 
 app.listen(PORT,(err)=>{
 	console.log(`app.listen on port ${PORT}`)
