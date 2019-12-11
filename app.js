@@ -223,10 +223,21 @@ app.get('/messager',(req,res)=>{
 
 app.get('/logout',(req,res)=>{
 	req.session.destroy();
+	res.redirect('/login')
 	res.end();
 })
 
+app.get('/test',(req,res)=>{
+	res.render('test');
+})
 
+app.post('/test',(req,res)=>{
+	console.log(req.body);
+})
+
+app.post('/add_comment',(req,res)=>{
+	DB.addComment(req.body.comment);
+})
 
 app.listen(PORT,(err)=>{
 	console.log(`app.listen on port ${PORT}`)

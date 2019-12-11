@@ -89,7 +89,9 @@ function getNewByUser(id){
     return New.find({"owner._id":id}).sort({create_date:-1});
 }
 
+function addComment(comment){
 
+}
 
 exports.DB={
     connect: connect,
@@ -108,5 +110,6 @@ exports.DB={
     getNewByUser:getNewByUser,
     getNewByFriends:getNewByFriends,
 
+    addComment:addComment
 
 }
